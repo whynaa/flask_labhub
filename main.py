@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session, flash
 import sqlite3 as sql
 from datetime import datetime
 import hashlib
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'
+
 con = sql.connect('database.db')
 print ("Oppened database successfully")
 
@@ -43,9 +45,43 @@ def md5(text):
 def index():
     return render_template('index.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = md5(request.form['password'])
+
+        conn = get_db_connection()
+        user = conn.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password)).fetchone()
+        conn.close()
+
+        print(user)
+
+        if user:
+            session['id_user'] = user['id_user']
+            session['username'] = user['username']
+            session['role'] = user['role']
+
+            if user['role'] == 'admin':
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('user_dashboard'))
+        else:
+            flash('Invalid username or password', 'danger')
+    
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('login'))
+
+@app.before_request
+def require_login():
+    allowed_routes = ['login', 'index', 'static']
+    if 'id_user' not in session and request.endpoint not in allowed_routes:
+        return redirect(url_for('login'))
 
 # START ADMIN
 
@@ -104,13 +140,14 @@ def admin_ruang():
 def save_ruang():
     id_lab = request.form.get('id_lab')
     nama_lab = request.form['nama_lab']
+    url_micro = request.form['url_micro']
     
     conn = get_db_connection()
     
     if id_lab:  # Jika ada ID, berarti Edit
-        conn.execute('UPDATE lab SET nama_lab = ? WHERE id_lab = ?', (nama_lab, id_lab))
+        conn.execute('UPDATE lab SET nama_lab = ?, url_micro = ? WHERE id_lab = ?', (nama_lab, url_micro, id_lab))
     else:  # Jika tidak ada ID, berarti Tambah
-        conn.execute('INSERT INTO lab (nama_lab) VALUES (?)', (nama_lab,))
+        conn.execute('INSERT INTO lab (nama_lab, url_micro) VALUES (?, ?)', (nama_lab, url_micro))
     
     conn.commit()
     conn.close()
