@@ -35,7 +35,7 @@ Dashboard
                             <div class="custom-control custom-switch">
                                 <input class="custom-control-input" type="checkbox" id="toggleLampu"
                                     onchange="toggleDevice('lampu')" disabled>
-                                <label class="custom-control-label" for="toggleLampu">Mati</label>
+                                <label class="custom-control-label" for="toggleLampu">Hidupkan / Matikan</label>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@ Dashboard
                             <div class="custom-control custom-switch">
                                 <input class="custom-control-input" type="checkbox" id="toggleKipas"
                                     onchange="toggleDevice('kipas')" disabled>
-                                <label class="custom-control-label" for="toggleKipas">Mati</label>
+                                <label class="custom-control-label" for="toggleKipas">Hidupkan / Matikan</label>
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@ Dashboard
                             <div class="custom-control custom-switch">
                                 <input class="custom-control-input" type="checkbox" id="toggleAc"
                                     onchange="toggleDevice('ac')" disabled>
-                                <label class="custom-control-label" for="toggleAc">Mati</label>
+                                <label class="custom-control-label" for="toggleAc">Hidupkan / Matikan</label>
                             </div>
                         </div>
                     </div>
@@ -279,7 +279,6 @@ Dashboard
     function updateToggle(device, status) {
         let toggle = document.getElementById(`toggle${capitalize(device)}`);
         let icon = document.getElementById(`${device}Icon`);
-        let label = document.querySelector(`label[for=toggle${capitalize(device)}]`);
 
         if (toggle) {
             toggle.checked = status;
@@ -291,10 +290,6 @@ Dashboard
         icon.classList.toggle("text-secondary", device === "kipas" && !status);
         icon.classList.toggle("text-info", device === "ac" && status);
         icon.classList.toggle("text-secondary", device === "ac" && !status);
-
-        if (label) {
-            label.textContent = status ? "Hidup" : "Mati";
-        }
     }
 
     function toggleDevice(device) {
