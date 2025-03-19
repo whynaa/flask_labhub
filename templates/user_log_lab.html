@@ -1,0 +1,46 @@
+{% extends "user_layout.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Riwayat Peminjaman</h1>
+
+        <!-- Default Card Example -->
+        <div class="card mb-4">
+        <div class="card-header">
+            Riwayat Peminjaman
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Id Kartu</th>
+                        <th>Nama Lab</th>
+                        <th>Waktu Pinjam</th>
+                        <th>Waktu Selesai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in peminjaman %}
+                    <tr>
+                        <td>{{ item.id_penjadwalan }}</td>
+                        <td>{{ item.id_kartu }}</td> 
+                        <td>{{ item.nama_lab }}</td>
+                        <td>{{ item.start_time }}</td>
+                        <td>{{ item.end_time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+</div>
+<!-- /.container-fluid -->
+
+{% endblock %}

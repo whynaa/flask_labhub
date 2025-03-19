@@ -1,0 +1,40 @@
+{% extends "user_layout.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Form Peminjaman Lab</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="id_user" class="form-label">Nama Peminjam</label>
+            <select class="form-control" id="nama" name="nama" required>
+                {% for users in user %}
+                    <option value="{{ users.id_user }}">{{ users.nama }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_lab" class="form-label">Pilih Lab</label>
+            <select class="form-control" id="id_lab" name="id_lab" required>
+                {% for lab in lab_list %}
+                    <option value="{{ lab.id_lab }}">{{ lab.nama_lab }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="jam_mulai" class="form-label">Jam Mulai</label>
+            <input type="datetime-local" class="form-control" id="jam_mulai" name="jam_mulai" required>
+        </div>
+        <div class="mb-3">
+            <label for="jam_selesai" class="form-label">Jam Selesai</label>
+            <input type="datetime-local" class="form-control" id="jam_selesai" name="jam_selesai" required>
+        </div>
+        <button type="submit" class="btn btn-success">Ajukan Peminjaman</button>
+
+    </form>
+</div>
+
+{% endblock %}
