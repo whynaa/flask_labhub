@@ -1,6 +1,6 @@
 {% extends "user_layout.html" %}
 {% block title %}
-Dashboard
+Data Barang
 {% endblock %}
 {% block content %}
 
@@ -8,33 +8,34 @@ Dashboard
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Riwayat Peminjaman</h1>
+    <h1 class="h3 mb-2 text-gray-800">Peminjaman Barang Lab</h1>
+    <p class="mb-4">Menampilkan seluruh data barang laboratorium yang terdaftar pada sistem</p>
 
-        <!-- Default Card Example -->
-        <div class="card mb-4">
-        <div class="card-header">
-            Riwayat Peminjaman
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Barang</h6>
         </div>
         <div class="card-body">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Id Kartu</th>
-                        <th>Nama Lab</th>
-                        <th>Waktu Pinjam</th>
-                        <th>Waktu Selesai</th>
+                        <th>ID</th>
+                        <th>Nama Barang</th>
+                        <th>Lokasi</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Tanggal Kembali</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in peminjaman %}
                     <tr>
-                        <td>{{ item.id_penjadwalan }}</td>
-                        <td>{{ item.id_kartu }}</td> 
+                        <td>{{ item.id_peminjaman }}</td>
+                        <td>{{ item.nama_barang }}</td> 
                         <td>{{ item.nama_lab }}</td>
-                        <td>{{ item.start_time }}</td>
-                        <td>{{ item.end_time }}</td>
+                        <td>{{ item.tanggal_pinjam }}</td>
+                        <td>{{ item.tanggal_kembali }}</td>
                         <td>
                             {% if item.status == "pending" %}
                                 <span class="badge bg-warning text-white">Menunggu</span>
@@ -49,8 +50,11 @@ Dashboard
                 </tbody>
             </table>
         </div>
-        </div>
+    </div>
+
 </div>
 <!-- /.container-fluid -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 {% endblock %}

@@ -8,17 +8,14 @@ Dashboard
     <h2>Form Peminjaman Lab</h2>
     <form method="POST">
         <div class="mb-3">
-            <label for="id_user" class="form-label">Nama Peminjam</label>
-            <select class="form-control" id="nama" name="nama" required>
-                {% for users in user %}
-                    <option value="{{ users.id_user }}">{{ users.nama }}</option>
-                {% endfor %}
-            </select>
+            <input type="hidden" name="id_user" id="id_user" value="{{ users.id_user }}">
+            <label class="form-label">Nama Peminjam</label>
+            <input type="text" class="form-control" id="nama" name="nama" value="{{users.nama}}" required readonly>
         </div>
 
         <div class="mb-3">
             <label for="id_lab" class="form-label">Pilih Lab</label>
-            <select class="form-control" id="id_lab" name="id_lab" required>
+            <select class="form-control" id="id_lab" name="id_lab" required readonly>
                 {% for lab in lab_list %}
                     <option value="{{ lab.id_lab }}">{{ lab.nama_lab }}</option>
                 {% endfor %}

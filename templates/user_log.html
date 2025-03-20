@@ -1,0 +1,61 @@
+{% extends "user_layout.html" %}
+{% block title %}
+Log Penggunaan Ruang
+{% endblock %}
+{% block content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Log Penggunaan Ruang</h1>
+    <p class="mb-4">Menampilkan seluruh log pengunaan ruang laboratorium yang terekam pada sistem</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Log Penggunaan Ruang</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Id Kartu</th>
+                            <th>Nama User</th>
+                            <th>Nama Lab</th>
+                            <th>Tanggal dan Waktu</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Id Kartu</th>
+                            <th>Nama User</th>
+                            <th>Nama Lab</th>
+                            <th>Tanggal dan Waktu</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for item in log %}
+                        <tr>
+                            <td>{{ item.id_log }}</td>
+                            <td>{{ item.id_kartu }}</td>
+                            <td>{{ item.nama }}</td>
+                            <td>{{ item.nama_lab }}</td>
+                            <td>{{ item.timestamp }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

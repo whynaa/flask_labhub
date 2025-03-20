@@ -32,7 +32,7 @@ Dashboard
                 <img src="../static/img/lab.jpg" class="card-img-top" alt="Gambar Lab">
                 <div class="card-body">
                   <h5 class="card-title">{{ lab.nama_lab }}</h5>
-                  <a href="{{ url_for('peminjaman')}}" class="btn btn-primary">Pinjam Sekarang</a>
+                  <a href="{{ url_for('pinjam_lab', id_lab=lab.id_lab)}}" class="btn btn-primary">Pinjam Sekarang</a>
                 </div>
               </div>
             </div>

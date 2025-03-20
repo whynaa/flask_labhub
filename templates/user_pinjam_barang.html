@@ -1,0 +1,47 @@
+{% extends "user_layout.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Form Peminjaman Barang Lab</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <input type="hidden" name="id_user" id="id_user" value="{{ users.id_user }}">
+            <label class="form-label">Nama Peminjam</label>
+            <input type="text" class="form-control" id="nama" name="nama" value="{{users.nama}}" required readonly>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_lab" class="form-label">Barang Lab</label>
+            <select class="form-control" id="id_lab" name="id_lab" required readonly>
+                {% for lab in lab_list %}
+                    <option value="{{ lab.id_lab }}">{{ lab.nama_lab }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_lab" class="form-label">Nama Barang</label>
+            <select name="id_barang[]" class="form-control" multiple required>
+                {% for barang in barang_list %}
+                <option value="{{ barang.id_barang }}">{{ barang.nama_barang }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Tanggal Pinjam:</label>
+            <input type="datetime-local" name="tanggal_pinjam" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Tanggal Kembali:</label>
+            <input type="datetime-local" name="tanggal_kembali" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Ajukan Peminjaman</button>
+
+    </form>
+</div>
+
+{% endblock %}
